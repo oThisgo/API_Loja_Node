@@ -6,6 +6,7 @@ const getAll = async () => {
 };
 
 const createCity = async (cidade) => {
+
     const {nome} = cidade;
     try {
         const [rows] = await connection.execute('SELECT COUNT(*) AS count FROM cidades WHERE nome = ?', [nome]);

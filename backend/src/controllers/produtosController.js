@@ -1,4 +1,6 @@
 const produtosModel = require('../models/produtosModel');
+const code = require('../models/connection/admin');
+const { json } = require('express');
 
 const getAll = async (_req, res) => {
 
@@ -8,22 +10,35 @@ const getAll = async (_req, res) => {
 };
 
 const createProd = async(req, res) => {
-    const createdProd = await produtosModel.createProd(req.body);
-    return res.status(201).json(createdProd);
+    const {pass} = req.params;
+    if (pass === code.senha) {
+        const createdProd = await produtosModel.createProd(req.body);
+        return res.status(201).json(createdProd);
+    } else {
+        return res.status(404).json({message : "Você não tem permissão para isso"});
+    }
 }
 
 const deleteProd = async(req, res) => {
     const {id} = req.params;
-
-    await produtosModel.deleteProd(id);
-
-    return res.status(204).json();
+    const {pass} = req.params;
+    if (pass === code.senha) {
+        await produtosModel.deleteProd(id);
+        return res.status(204).json();
+    } else {
+        return res.status(404).json({message : "Você não tem permissão para isso"});
+    }
 };
 
 const updateProd = async(req, res) => {
     const {id} = req.params;
-    await produtosModel.updateProd(id, req.body);
-    return res.status(204).json();
+    const {pass} = req.params;
+    if (pass === code.senha) {
+        await produtosModel.updateProd(id, req.body);
+        return res.status(204).json();
+    } else {
+        return res.status(404).json({message : "Você não tem permissão para isso"});
+    }
 }
 
 module.exports = {
