@@ -15,20 +15,20 @@ const pedidosMiddleware = require('./middlewares/pedidosMiddleware');
 
 //rotas produtos
 router.get('/produtos', produtosController.getAll);
-router.post('/admin/add-produto', produtosMiddleware.validateBody, produtosController.createProd);
-router.delete('/admin/del-produto/:id', produtosController.deleteProd);
-router.put('/admin/upd-produto/:id', produtosMiddleware.validateBody, produtosController.updateProd);
+router.post('/admin/add-produto/:pass', produtosMiddleware.validateBody, produtosController.createProd);
+router.delete('/admin/del-produto/:id/:pass', produtosController.deleteProd);
+router.put('/admin/upd-produto/:id/:pass', produtosMiddleware.validateBody, produtosController.updateProd);
 
 //rotas clientes
 router.post('/cadastrar', clientesMiddleware.validateBody, clientesController.createClient);
 
 //rotas cidades
 router.get('/cidades', cidadesController.getAll);
-router.post('/admin/add-cidade', cidadesMiddleware.validateBody, cidadesController.createCity);
+router.post('/admin/add-cidade/:pass', cidadesMiddleware.validateBody, cidadesController.createCity);
 
 //rotas categorias
 router.get('/categorias', categoriasController.getAll);
-router.post('/admin/add-categoria', categoriasMiddleware.validateBody, categoriasController.createCat);
+router.post('/admin/add-categoria/:pass', categoriasMiddleware.validateBody, categoriasController.createCat);
 
 //rotas pedidos
 router.get('/pedidos/:id', pedidosController.getAll);
